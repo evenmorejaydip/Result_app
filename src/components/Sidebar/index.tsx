@@ -117,7 +117,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     pathname === "/forms/form-layout" && "text-white"
                   } `}
                 >
-                  Form Layout
+                  Admin Form
                 </Link>
               </li>
               <li>
@@ -162,27 +162,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           {/* <!-- Others Group --> */}
           <div>
             <ul className="mb-6 flex flex-col gap-1.5">
-              <li>
-                <Link
-                  href="/ui/alerts"
-                  className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                    pathname === "/ui/alerts" && "text-white"
-                  }`}
-                >
-                  Alerts
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/ui/buttons"
-                  className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
-                    pathname === "/ui/buttons" && "text-white"
-                  }`}
-                >
-                  Buttons
-                </Link>
-              </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/signin"
                   className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${
@@ -191,7 +171,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 >
                   Sign In
                 </Link>
-              </li>
+              </li> */}
               {/* <li>
                 <Link
                   href="/signup"

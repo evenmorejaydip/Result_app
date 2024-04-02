@@ -14,10 +14,6 @@ export const setItem = (key, data) => {
   localStorage.setItem(key, JSON.stringify(data || {}));
 };
 
-export const clearItem = (key) => {
-  localStorage.removeItem(key);
-};
-
 export const logoutUser = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("userDetails");
@@ -30,27 +26,7 @@ export const getToken = () => {
   }
   return "";
 };
-const publicRoutes = [
-  "/",
-  "/login",
-  "/property-list",
-  "/all-brokers",
-  "/enquiries",
-  "/details/:id",
-  "/consultant/make-payment",
-  "/page-not-found",
-  "/terms-and-condition",
-  "/privacy",
-  "/consultant/join-now",
-  "/property-list/:location",
-  "/:projectdetails",
-];
-
-const scopes = {
-  user: {
-    userProfile: true,
-  },
-};
+const publicRoutes = ["/", "/login", "/property-list", "/all-brokers"];
 
 export const checkUrlAccess = (isLogged, url, redirectUser, role) => {
   const isPublicRoute = publicRoutes.some((publicRoute) => {
