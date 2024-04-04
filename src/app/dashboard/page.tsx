@@ -1,6 +1,6 @@
 import ECommerce from "@/components/Dashboard/E-commerce";
 import { Metadata } from "next";
-import Link from "next/link";
+import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
   title:
@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <Link className="mb-5.5 inline-block" href="/signin">
-        LOGIN
-      </Link>
+      <DefaultLayout>
+        <ECommerce />
+      </DefaultLayout>
     </>
   );
 }

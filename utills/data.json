@@ -1,0 +1,22 @@
+{
+  "stdData": [
+    { "value": "SKG", "label": "SKG" },
+    { "value": "LKG", "label": "LKG" },
+    { "value": "1st", "label": "1st" },
+    { "value": "2nd", "label": "2nd" },
+    { "value": "3rd", "label": "3rd" },
+    { "value": "4th", "label": "4th" },
+    { "value": "5th", "label": "5th" },
+    { "value": "6th", "label": "6th" },
+    { "value": "7th", "label": "7th" },
+    { "value": "8th", "label": "8th" },
+    { "value": "9th", "label": "9th" },
+    { "value": "10th", "label": "10th" },
+    { "value": "11th-Com", "label": "11th-Com" },
+    { "value": "11th-Sci", "label": "11th-Sci" },
+    { "value": "11th-Art", "label": "11th-Art" },
+    { "value": "12th-Art", "label": "12th-Art" },
+    { "value": "12th-Com", "label": "12th-Com" },
+    { "value": "12th-Sci", "label": "12th-Sci" }
+  ]
+}

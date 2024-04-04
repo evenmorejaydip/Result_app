@@ -1,4 +1,5 @@
 export type Package = {
+  [x: string]: any;
   _id: string;
   role: string;
   first_name: string;

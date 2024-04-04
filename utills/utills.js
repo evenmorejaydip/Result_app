@@ -16,8 +16,7 @@ export const setItem = (key, data) => {
 
 export const logoutUser = () => {
   localStorage.removeItem("token");
-  localStorage.removeItem("userDetails");
-  window.location.href = "/";
+  window.location.href = "/signin";
 };
 
 export const getToken = () => {
@@ -26,29 +25,17 @@ export const getToken = () => {
   }
   return "";
 };
-const publicRoutes = ["/", "/login", "/property-list", "/all-brokers"];
+const publicRoutes = ["/", "/signin", "/students"];
 
-export const checkUrlAccess = (isLogged, url, redirectUser, role) => {
+export const checkUrlAccess = (url, redirectUser, setIsLogged) => {
+  console.log(url, redirectUser);
   const isPublicRoute = publicRoutes.some((publicRoute) => {
-    if (publicRoute.includes("/:")) {
-      // Handle dynamic routes
-      const baseRoute = publicRoute.split("/:")[0];
-      return url.startsWith(baseRoute);
-    }
     return url === publicRoute;
   });
+  console.log(isPublicRoute);
 
-  if (!isLogged && !isPublicRoute) {
-    redirectUser("/login");
-  }
-  if (isLogged) {
-    if (url.includes("/admin") && role !== "admin" && role !== "superAdmin") {
-      redirectUser("/");
-    } else if (url.includes("/user") && role !== "user") {
-      redirectUser("/");
-    } else if (url.includes("/consultant") && role !== "broker") {
-      console.log(url, isLogged);
-      redirectUser("/");
-    }
+  if (!isLoggedIn() && !isPublicRoute) {
+    redirectUser("/signin");
+    setIsLogged(false);
   }
 };

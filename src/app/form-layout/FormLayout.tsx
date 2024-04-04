@@ -1,28 +1,58 @@
 "use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import { useState } from "react";
-import { CreateStudentData } from "../../../../api/ManageUser.api";
+import { useEffect, useState } from "react";
+import {
+  CreateStudentData,
+  UpdateStudentData,
+  fetchDataSingle,
+} from "../../../api/ManageUser.api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-const StdData = Array.from({ length: 12 }, (_, i) => ({
-  value: (i + 1).toString(),
-  label: `${i + 1}${i < 2 ? ["st", "nd", "rd"][i] : "th"}`,
-}));
+import { useRouter } from "next/navigation";
+import stdData from "../../../utills/data.json";
+import LoaderIcon from "../../../utills/Icon/LoaderIcon";
 
 const initialFormData = {
   firstName: "",
   middleName: "",
   lastName: "",
   std: "",
-  totalMarks: "",
-  marks: "",
+  totalMarks: 0,
+  marks: 0,
 };
 
-const FormLayout = () => {
+const FormLayout = ({ params }: any) => {
+  const id = params?.id;
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const [errors, setErrors] = useState(initialFormData);
+
+  const fetchDataSingleData = async () => {
+    try {
+      if (id) {
+        const response = await fetchDataSingle(id);
+        const userData = response?.data?.employee;
+        if (userData) {
+          setFormData({
+            firstName: userData.first_name || "",
+            middleName: userData.middle_name || "",
+            lastName: userData.last_name || "",
+            std: userData.std || "",
+            marks: userData.marks || "",
+            totalMarks: userData.total_marks || "",
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching student data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataSingleData();
+  }, [id]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -53,16 +83,6 @@ const FormLayout = () => {
       hasError = true;
     }
 
-    if (!formData.marks.trim()) {
-      newErrors.marks = "Marks is required";
-      hasError = true;
-    }
-
-    if (!formData.totalMarks.trim()) {
-      newErrors.totalMarks = "Total Marks is required";
-      hasError = true;
-    }
-
     if (!formData.std) {
       newErrors.std = "Std is required";
       hasError = true;
@@ -73,32 +93,38 @@ const FormLayout = () => {
       return;
     }
 
-    const marks = parseFloat(formData.marks);
-    const totalMarks = parseFloat(formData.totalMarks);
-    const adData = {
-      first_name: formData.firstName,
-      middle_name: formData.middleName,
-      last_name: formData.lastName,
-      marks: marks,
-      total_marks: totalMarks,
-      std: formData.std,
+    let adData = {
+      first_name: formData?.firstName,
+      middle_name: formData?.middleName,
+      last_name: formData?.lastName,
+      marks: formData?.marks,
+      total_marks: formData?.totalMarks,
+      std: formData?.std,
     };
     try {
-      // setLoading(true);
-      const response = await CreateStudentData(adData);
+      setLoading(true);
+      let response;
+      if (id) {
+        response = await UpdateStudentData(id, adData);
+      } else {
+        response = await CreateStudentData(adData);
+      }
       if (response.status == 201 || response.status == 200) {
-        toast.success(response?.data?.message || "submitting student data");
         setFormData(initialFormData);
         setErrors(initialFormData);
+        toast.success(response?.data?.message || "submitting student data");
+        // setTimeout(() => {
+        //   router.push("/tables");
+        // }, 2000);
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error(
         error?.response?.data?.message ||
           error?.message ||
           "Error submitting student data",
       );
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -106,7 +132,6 @@ const FormLayout = () => {
     <DefaultLayout>
       <ToastContainer />
       <Breadcrumb pageName="Student Result Add" />
-
       <div className="grid grid-cols-1 gap-9 sm:grid-cols-1">
         <div className="flex flex-col gap-9">
           {/* <!-- Contact Form --> */}
@@ -174,16 +199,13 @@ const FormLayout = () => {
                       Marks
                     </label>
                     <input
-                      value={formData.marks}
+                      value={formData?.marks}
                       onChange={handleChange}
                       name="marks"
                       type="number"
                       placeholder="Enter your marks"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
-                    {errors.marks && (
-                      <div className="error text-red">{errors.marks}</div>
-                    )}
                   </div>
 
                   <div className="w-full xl:w-1/2">
@@ -191,16 +213,13 @@ const FormLayout = () => {
                       Total marks
                     </label>
                     <input
-                      value={formData.totalMarks}
+                      value={formData?.totalMarks}
                       onChange={handleChange}
                       type="number"
                       name="totalMarks"
                       placeholder="Enter your total marks"
                       className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                     />
-                    {errors.totalMarks && (
-                      <div className="error text-red">{errors.totalMarks}</div>
-                    )}
                   </div>
                 </div>
 
@@ -222,7 +241,7 @@ const FormLayout = () => {
                       >
                         Select Your Std
                       </option>
-                      {StdData.map((std) => (
+                      {stdData?.stdData.map((std) => (
                         <option
                           key={std.value}
                           value={std.value}
@@ -259,94 +278,16 @@ const FormLayout = () => {
                 </div>
 
                 <button
+                  disabled={loading}
                   type="submit"
                   className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                 >
-                  Submit
+                  {loading ? <LoaderIcon /> : "Submit"}
                 </button>
               </div>
             </form>
           </div>
         </div>
-
-        {/* <div className="flex flex-col gap-9"> */}
-        {/* <!-- Sign In Form --> */}
-        {/* <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-              <h3 className="font-medium text-black dark:text-white">
-                Sign In Form
-              </h3>
-            </div>
-            <form action="#">
-              <div className="p-6.5">
-                <div className="mb-4.5">
-                  <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="Enter your email address"
-                    className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-3 block text-sm font-medium text-black dark:text-white">
-                    Password
-                  </label>
-                  <input
-                    type="password"
-                    placeholder="Enter password"
-                    className="w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  />
-                </div>
-
-                <div className="mb-5.5 mt-5 flex items-center justify-between">
-                  <label htmlFor="formCheckbox" className="flex cursor-pointer">
-                    <div className="relative pt-0.5">
-                      <input
-                        type="checkbox"
-                        id="formCheckbox"
-                        className="taskCheckbox sr-only"
-                      />
-                      <div className="box mr-3 flex h-5 w-5 items-center justify-center rounded border border-stroke dark:border-strokedark">
-                        <span className="text-white opacity-0">
-                          <svg
-                            className="fill-current"
-                            width="10"
-                            height="7"
-                            viewBox="0 0 10 7"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                              d="M9.70685 0.292804C9.89455 0.480344 10 0.734667 10 0.999847C10 1.26503 9.89455 1.51935 9.70685 1.70689L4.70059 6.7072C4.51283 6.89468 4.2582 7 3.9927 7C3.72721 7 3.47258 6.89468 3.28482 6.7072L0.281063 3.70701C0.0986771 3.5184 -0.00224342 3.26578 3.785e-05 3.00357C0.00231912 2.74136 0.10762 2.49053 0.29326 2.30511C0.4789 2.11969 0.730026 2.01451 0.992551 2.01224C1.25508 2.00996 1.50799 2.11076 1.69683 2.29293L3.9927 4.58607L8.29108 0.292804C8.47884 0.105322 8.73347 0 8.99896 0C9.26446 0 9.51908 0.105322 9.70685 0.292804Z"
-                              fill=""
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                    <p>Remember me</p>
-                  </label>
-
-                  <Link
-                    href="#"
-                    className="text-sm text-primary hover:underline"
-                  >
-                    Forget password?
-                  </Link>
-                </div>
-
-                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                  Sign In
-                </button>
-              </div>
-            </form>
-          </div> */}
-        {/* </div> */}
       </div>
     </DefaultLayout>
   );
