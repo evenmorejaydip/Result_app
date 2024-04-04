@@ -16,6 +16,6 @@ export const UpdateStudentData = (Id: any, adData: any) => {
   return axiosInstance.put(`/user/${Id}`, adData);
 };
 
-export const DeleteStudent = (Id: any, adData: any) => {
-  return axiosInstance.delete(`/user/${Id}`, adData);
+export const DeleteStudent = (Id: string) => {
+  return axiosInstance.delete(`/user/${Id}`);
 };

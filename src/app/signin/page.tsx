@@ -7,9 +7,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { signInData } from "../../../api/Auth.api";
 import LogoIcon from "../../../utills/Icon/Logo";
 import { useRouter } from "next/navigation";
+import { LoaderIcon } from "../../../utills/Icon/LoaderIcon";
 
 const SignIn: React.FC = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [fromData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,6 +33,7 @@ const SignIn: React.FC = () => {
     };
 
     try {
+      setLoading(true);
       const response = await signInData(adData);
       if (response.status == 201 || response.status == 200) {
         const token = response.data.token;
@@ -44,6 +47,8 @@ const SignIn: React.FC = () => {
           error?.message ||
           "Error something went wrong",
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -159,13 +164,13 @@ const SignIn: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="mb-5">
-                  <input
-                    type="submit"
-                    value="Sign In"
-                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                  />
-                </div>
+                <button
+                  disabled={loading}
+                  type="submit"
+                  className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+                >
+                  {loading ? <LoaderIcon /> : "Submit"}
+                </button>
               </form>
             </div>
           </div>

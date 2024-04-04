@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "utills/Icon/Logo.js"
-  ],
+, "utills/Icon/Delete"  ],
   "exclude": ["node_modules"]
 }

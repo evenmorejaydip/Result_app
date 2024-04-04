@@ -1,11 +1,12 @@
 import { Package } from "@/types/package";
-import DeleteIcon from "../../../utills/Icon/Delete";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { DeleteStudent } from "../../../api/ManageUser.api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Loader from "@/components/common/Loader";
+import DeleteIcon from "../../../utills/Icon/Delete";
+import { EditIcon } from "../../../utills/Icon/Edit";
 
 interface TableThreeProps {
   StudentData: Package[];
@@ -18,8 +19,6 @@ const TableThree: React.FC<TableThreeProps> = ({
   getAllUsersList,
   showActions = true,
 }) => {
-  console.log({ StudentData });
-
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -115,20 +114,7 @@ const TableThree: React.FC<TableThreeProps> = ({
                           }
                           className="p-2"
                         >
-                          <svg
-                            className="h-8 w-8 text-blue-500"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2"
-                            stroke="currentColor"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" />{" "}
-                            <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />{" "}
-                            <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />{" "}
-                            <line x1="16" y1="5" x2="19" y2="8" />
-                          </svg>
+                          <EditIcon />
                         </button>
                       </div>
                       <button

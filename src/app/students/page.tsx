@@ -5,7 +5,7 @@ import { getUsersList } from "../../../api/ManageUser.api";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import Loader from "@/components/common/Loader";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import SubHeader from "@/components/SubHeader";
 
 const TablesPage = () => {
   const [allData, setAllData] = useState([]);
@@ -42,6 +42,7 @@ const TablesPage = () => {
         <Loader />
       ) : (
         <>
+        <SubHeader ></SubHeader>
           <div className="flex flex-col gap-10">
             <TableThree
               StudentData={allData}

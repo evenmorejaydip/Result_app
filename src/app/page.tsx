@@ -1,3 +1,4 @@
+import CardDataStats from "@/components/CardDataStats";
 import ECommerce from "@/components/Dashboard/E-commerce";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -10,10 +11,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
-      <Link className="mb-5.5 inline-block" href="/signin">
-        LOGIN
-      </Link>
-    </>
+    <div className="w-full">
+      <ECommerce />
+    </div>
   );
 }

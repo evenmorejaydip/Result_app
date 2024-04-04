@@ -11,7 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import stdData from "../../../utills/data.json";
-import LoaderIcon from "../../../utills/Icon/LoaderIcon";
+import { LoaderIcon } from "../../../utills/Icon/LoaderIcon";
 
 const initialFormData = {
   firstName: "",
