@@ -2,9 +2,9 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { checkUrlAccess, getToken } from "./utills";
 import { usePathname, useRouter } from "next/navigation";
-const AuthContext = createContext(null);
+const AuthContext = createContext<any>({});
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }: any) => {
   const [isLogged, setIsLogged] = useState(true);
   const pathname = usePathname();
   const router = useRouter();
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     return Boolean(getToken());
   };
 
-  const login = (token) => {
+  const login = (token: string) => {
     localStorage.setItem("token", token);
     setIsLogged(true);
     window.dispatchEvent(new Event("storage"));
@@ -25,12 +25,12 @@ export const AuthProvider = ({ children }) => {
     window.location.href = "/";
   };
 
-  const redirectUser = (url: string) => {
-    router.replace(url);
-  };
+  // const redirectUser = (url: string) => {
+  //   router.replace(url);
+  // };
 
   useEffect(() => {
-    checkUrlAccess(pathname, redirectUser, setIsLogged);
+    checkUrlAccess(pathname, setIsLogged);
   }, [pathname]);
 
   const contextValue = {

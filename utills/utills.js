@@ -27,15 +27,14 @@ export const getToken = () => {
 };
 const publicRoutes = ["/", "/signin", "/students"];
 
-export const checkUrlAccess = (url, redirectUser, setIsLogged) => {
-  console.log(url, redirectUser);
+export const checkUrlAccess = (url, setIsLogged) => {
   const isPublicRoute = publicRoutes.some((publicRoute) => {
     return url === publicRoute;
   });
-  console.log(isPublicRoute);
 
   if (!isLoggedIn() && !isPublicRoute) {
-    redirectUser("/signin");
+    // router.push("/signin");
+    window.location.href = "/signin";
     setIsLogged(false);
   }
 };
