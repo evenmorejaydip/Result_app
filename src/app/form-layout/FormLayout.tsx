@@ -52,7 +52,7 @@ const FormLayout = ({ params }: any) => {
 
   useEffect(() => {
     fetchDataSingleData();
-  }, [id]);
+  });
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
