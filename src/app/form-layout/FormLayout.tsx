@@ -52,7 +52,8 @@ const FormLayout = ({ params }: any) => {
 
   useEffect(() => {
     fetchDataSingleData();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
