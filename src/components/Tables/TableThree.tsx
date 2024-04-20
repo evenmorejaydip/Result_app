@@ -41,10 +41,24 @@ const TableThree: React.FC<TableThreeProps> = ({
     }
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   const renderTables = () => {
     return Object.entries(StudentData).map(([std, students], index) => (
       <div key={index} className="py-[30px]">
-        <h2 className="my-3 text-2xl font-bold text-primary">{std} Standard</h2>
+        <div className="flex justify-between">
+          <h2 className="my-3 text-2xl font-bold text-primary">
+            {std} Standard
+          </h2>
+          <button
+            className="my-2 flex justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+            onClick={handlePrint}
+          >
+            Print
+          </button>
+        </div>
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-black text-left text-white dark:bg-meta-4">
