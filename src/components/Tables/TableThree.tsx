@@ -112,12 +112,14 @@ const TableThree: React.FC<TableThreeProps> = ({
                           onClick={() =>
                             router.push(`/form-layout/${student._id}`)
                           }
-                          className="p-2"
+                          className="hover:text-primary"
+                          style={{ width: "25px" }}
                         >
                           <EditIcon />
                         </button>
                       </div>
                       <button
+                        style={{ width: "25px" }}
                         className="hover:text-primary"
                         onClick={() => handleDelete(student._id, index)}
                       >

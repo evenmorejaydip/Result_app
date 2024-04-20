@@ -3,7 +3,7 @@ import React from "react";
 const DeleteIcon = () => {
   return (
     <svg
-      className="dark:text-gray-500 mx-auto mb-3.5 h-8 w-8 text-red"
+      className="dark:text-gray-500 mx-auto h-8 w-8 text-red"
       aria-hidden="true"
       fill="currentColor"
       viewBox="0 0 20 20"

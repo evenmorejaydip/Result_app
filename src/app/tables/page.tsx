@@ -43,7 +43,7 @@ const TablesPage = () => {
       ) : (
         <>
           <Breadcrumb pageName="Tables" />
-          <Link href="form-layout">
+          <Link href="form-layout" className="flex w-fit">
             <button className="my-2 flex justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
               Add Result
             </button>

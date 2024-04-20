@@ -15,7 +15,6 @@ const TablesPage = () => {
     try {
       setLoading(true);
       const response = await getUsersList();
-      console.log(response?.data?.userData);
 
       if (response.status == 200) {
         setAllData(response?.data?.userData);
@@ -42,7 +41,7 @@ const TablesPage = () => {
         <Loader />
       ) : (
         <>
-        <SubHeader ></SubHeader>
+          <SubHeader></SubHeader>
           <div className="flex flex-col gap-10">
             <TableThree
               StudentData={allData}

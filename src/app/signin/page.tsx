@@ -1,11 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { signInData } from "../../../api/Auth.api";
-import LogoIcon from "../../../utills/Icon/Logo";
 import { useRouter } from "next/navigation";
 import { LoaderIcon } from "../../../utills/Icon/LoaderIcon";
 
@@ -59,34 +57,28 @@ const SignIn: React.FC = () => {
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="px-26 py-17.5 text-center">
-              <Link className="mb-5.5 inline-block" href="/">
-                <Image
-                  className="hidden dark:block"
-                  src={"/images/logo/logo.svg"}
-                  alt="Logo"
-                  width={176}
-                  height={32}
-                />
-                <Image
-                  className="dark:hidden"
-                  src={"/images/logo/logo-dark.svg"}
-                  alt="Logo"
-                  width={176}
-                  height={32}
-                />
-              </Link>
-
+              <h2 className="mb-1 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
+                ગુંદરણ સ્નહેમિલન
+              </h2>
               <p className="2xl:px-20">Welcome</p>
-
               <span className="mt-15 inline-block">
-                <LogoIcon />
+                <Image
+                  src={"/images/logo/logo.png"}
+                  width={160}
+                  height={160}
+                  style={{
+                    width: "auto",
+                    height: "auto",
+                  }}
+                  alt="profile"
+                />
               </span>
             </div>
           </div>
 
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <span className="mb-1.5 block font-medium">Start for free</span>
+              <span className="mb-1.5 block font-medium">Wel come</span>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Sign In to Admin
               </h2>
