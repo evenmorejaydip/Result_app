@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "@/components/common/Loader";
 import DeleteIcon from "../../../utills/Icon/Delete";
 import { EditIcon } from "../../../utills/Icon/Edit";
+import ConfirmationModal from "../ConfirmationModal";
 
 interface TableThreeProps {
   StudentData: Package[];
@@ -21,14 +22,25 @@ const TableThree: React.FC<TableThreeProps> = ({
 }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [studentIdToDelete, setStudentIdToDelete] = useState<string | null>(
+    null,
+  );
 
   const handleDelete = async (itemId: string, index: number) => {
+    setIsDeleteModalOpen(true); // Open confirmation modal
+    setStudentIdToDelete(itemId); // Store ID for deletion in modal
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!studentIdToDelete) return;
     try {
       setLoading(true);
-      const response = await DeleteStudent(itemId);
+      const response = await DeleteStudent(studentIdToDelete);
       if (response.status == 200) {
         toast.success(response?.data?.message || "submitting student data");
         getAllUsersList();
+        setIsDeleteModalOpen(false);
       }
     } catch (error: any) {
       toast.error(
@@ -160,6 +172,14 @@ const TableThree: React.FC<TableThreeProps> = ({
           {StudentData ? renderTables() : null}
         </div>
       )}
+
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleDeleteConfirm}
+        title="Confirm Student Deletion"
+        message="Are you sure you want to delete this item?"
+      />
     </div>
   );
 };
