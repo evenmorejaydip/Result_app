@@ -79,7 +79,7 @@ const ECommerce: React.FC = () => {
                 Developed by :
               </h4>
               <div className="flex items-center justify-end gap-3.5">
-                <h2 className="text-2xl font-semibold text-black dark:text-white">
+                <h2 className="text-[18px] font-semibold text-black dark:text-white">
                   Jaydip Mangukiya
                 </h2>
               </div>
