@@ -60,8 +60,8 @@ const TableThree: React.FC<TableThreeProps> = ({
   const renderTables = () => {
     return Object.entries(StudentData).map(([std, students], index) => (
       <div key={index} className="py-[30px]">
-        <div className="flex justify-between">
-          <h2 className="my-3 text-2xl font-bold text-primary">
+        <div className="flex justify-between align-center">
+          <h2 className="my-3 text-[18px] font-bold text-primary">
             {std} Standard
           </h2>
           <button
