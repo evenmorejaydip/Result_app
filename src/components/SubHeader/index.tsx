@@ -31,10 +31,10 @@ const SubHeader = () => {
           <div className="relative">
             <Link className="flex items-center gap-4" href="#">
               <span className="text-right">
-                <span className="block text-[20px] font-semibold text-black dark:text-white sm:text-title-md2">
+                <span className="block text-[18px] font-semibold text-black dark:text-white sm:text-title-md2">
                   Jaydip Mangukiya
                 </span>
-                <span className="block text-[16px] font-semibold text-black">
+                <span className="block text-[15px] font-semibold text-black">
                   Developed by
                 </span>
               </span>

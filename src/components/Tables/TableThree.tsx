@@ -117,17 +117,17 @@ const TableThree: React.FC<TableThreeProps> = ({
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium`}
                   >
-                    {student?.marks}
+                    {student?.marks ? student?.marks : "Using grade"}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {student?.total_marks}
+                    {student?.total_marks ? student?.total_marks : "Using grade"}
                   </p>
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {student?.percentage.toFixed(2)}
+                    {student?.percentage && student?.percentage.toFixed(2)}
                   </p>
                 </td>
                 {showActions && (

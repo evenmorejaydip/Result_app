@@ -1,7 +1,9 @@
 {
   "stdData": [
-    { "value": "SKG", "label": "SKG" },
+    { "value": "UKG", "label": "UKG" },
     { "value": "LKG", "label": "LKG" },
+    { "value": "JKG", "label": "JKG" },
+    { "value": "SKG", "label": "SKG" },
     { "value": "1st", "label": "1st" },
     { "value": "2nd", "label": "2nd" },
     { "value": "3rd", "label": "3rd" },
